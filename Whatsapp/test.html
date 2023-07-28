@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body><div class="container">
+    <button class="slow-hover">hello</button>
+</div>
+    <button class="btn">hover me</button>
+
+    <button class="Button">Hover Me !</button>
+    <style>
+        body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #f0f0f0; /* Set a background color for the body */
+}
+
+.container {
+  position: relative;
+}
+
+.slow-hover {
+  position: relative;
+  padding: 12px 24px;
+  background-color: forestgreen;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  width: 100px;
+  height: 60px;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.slow-hover::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 0;
+  background-image: linear-gradient(to top, #007bff, transparent); /* Set the gradient color */
+  transition: height 1s ease; /* Increase the transition duration for a slower animation */
+}
+
+.slow-hover:hover::before {
+  height: 100%; /* The height will be increased to 100% on hover, filling the button from the bottom */
+}
+.Button
+{
+  display: inline-block;
+  width: 200px;
+  height: 80px;
+  background-color: #007bff;
+  transition: all 0.4s;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+.Button:hover
+{
+  color: aqua;
+}
+.Button::after
+{
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 0%;
+    width: 100%;
+    background-color: black;
+    z-index: -1;
+    transition: 0.5s ease-in;
+    transform: scale(1,0);
+
+    transform-origin: bottom right;
+    transition: transform 2000ms cubic-bezier(0.86,0,0.07.1);
+    transition-timing-function: cubic-bezier(0.86,0,0.07,1);
+
+}
+.Button:hover::after
+{
+    transform: scale(1,1);
+    height: 100%;
+    transform-origin: bottom left;
+}
+    </style>
+    <div class="slider-container">
+      <div class="slider">
+        <div class="slide active">Slide 1</div>
+        <div class="slide">Slide 2</div>
+        <div class="slide">Slide 3</div>
+        <!-- Add more slides here as needed -->
+      </div>
+      <button class="prev-btn">Previous</button>
+      <button class="next-btn">Next</button>
+    </div>
+    <style>
+      /* styles.css */
+body {
+  font-family: Arial, sans-serif;
+}
+
+.slider-container {
+  width: 400px;
+  margin-right: 10px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.slider {
+  display: flex;
+  transition: transform 0.3s ease;
+}
+
+.slide {
+  flex: 0 0 250px;
+  height: 200px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.active {
+  background-color: #007bff;
+  color: #fff;
+}
+
+    </style>
+    <script>
+      // script.js
+const slider = document.querySelector(".slider");
+const slides = document.querySelectorAll(".slide");
+const prevBtn = document.querySelector(".prev-btn");
+const nextBtn = document.querySelector(".next-btn");
+const slideWidth = slides[0].clientWidth;
+let currentSlide = 0;
+
+prevBtn.addEventListener("click", () => {
+  if (currentSlide > 0) {
+    currentSlide--;
+    updateSliderPosition();
+  }
+});
+
+nextBtn.addEventListener("click", () => {
+  if (currentSlide < slides.length - 1) {
+    currentSlide++;
+    updateSliderPosition();
+  }
+});
+
+function updateSliderPosition() {
+  const offset = -currentSlide * slideWidth;
+  slider.style.transform = `translateX(${offset}px)`;
+
+  // Remove active class from all slides and add it to the current slide
+  slides.forEach((slide, index) => {
+    if (index === currentSlide) {
+      slide.classList.add("active");
+    } else {
+      slide.classList.remove("active");
+    }
+  });
+}
+
+    </script>
+</body>
+</html>
